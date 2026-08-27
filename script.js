@@ -5,7 +5,7 @@ const menuBtn=document.getElementById('menuBtn');const nav=document.getElementBy
   const list=document.querySelector('.course-list');
   if(!list)return;
   const certificates=[
-    ['آموزش جامع صدور بیمه ثالث ایران','دوره تخصصی','https://www.maktabkhooneh.org/certificates/MK-03LWON/'],
+    ['آموزش جامع صدور بیمه شخص ثالث ایران','دوره تخصصی','https://www.maktabkhooneh.org/certificates/MK-03LWON/'],
     ['مدیریت شکایات و خدمات پس از فروش','دوره تخصصی','https://www.maktabkhooneh.org/certificates/MK-YL4GPB/'],
     ['قدرت کلمات در ارتباطات','دوره آموزشی','https://www.maktabkhooneh.org/certificates/MK-SW258E/'],
     ['۱۰ مهارت مهم در مراکز تماس و پشتیبانی','دوره آموزشی','https://faradars.org/verify/E8AD4B9D']
