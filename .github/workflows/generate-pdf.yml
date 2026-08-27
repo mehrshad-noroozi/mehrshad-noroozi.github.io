@@ -5,6 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   pdf:
     runs-on: ubuntu-latest
@@ -27,27 +30,12 @@ jobs:
         run: |
           cat > generate-pdf.mjs <<'EOF'
           import { chromium } from 'playwright';
-          import fs from 'fs';
-
           const browser = await chromium.launch({ headless: true });
-          const page = await browser.newPage({
-            viewport: { width: 1440, height: 1000 },
-            deviceScaleFactor: 1
-          });
-
+          const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
           await page.goto('https://mehrshad-noroozi.github.io/', { waitUntil: 'networkidle', timeout: 120000 });
-          await page.evaluate(() => {
-            document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-            window.scrollTo(0, 0);
-          });
+          await page.evaluate(() => { document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible')); window.scrollTo(0, 0); });
           await page.waitForTimeout(1500);
-          await page.pdf({
-            path: 'mehrshad-noroozi-portfolio.pdf',
-            format: 'A4',
-            printBackground: true,
-            preferCSSPageSize: false,
-            margin: { top: '0', right: '0', bottom: '0', left: '0' }
-          });
+          await page.pdf({ path: 'mehrshad-noroozi-portfolio.pdf', format: 'A4', printBackground: true, preferCSSPageSize: false, margin: { top: '0', right: '0', bottom: '0', left: '0' } });
           await browser.close();
           EOF
           node generate-pdf.mjs
@@ -58,3 +46,13 @@ jobs:
           name: mehrshad-noroozi-portfolio-pdf
           path: mehrshad-noroozi-portfolio.pdf
           retention-days: 30
+
+      - name: Publish PDF to repository
+        run: |
+          mkdir -p public-downloads
+          cp mehrshad-noroozi-portfolio.pdf public-downloads/mehrshad-noroozi-portfolio.pdf
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public-downloads/mehrshad-noroozi-portfolio.pdf
+          git diff --cached --quiet || git commit -m "Publish portfolio PDF"
+          git push
