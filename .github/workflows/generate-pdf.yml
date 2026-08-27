@@ -49,10 +49,9 @@ jobs:
 
       - name: Publish PDF to repository
         run: |
-          mkdir -p public-downloads
-          cp mehrshad-noroozi-portfolio.pdf public-downloads/mehrshad-noroozi-portfolio.pdf
+          cp mehrshad-noroozi-portfolio.pdf mehrshad-noroozi-portfolio.pdf
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public-downloads/mehrshad-noroozi-portfolio.pdf
-          git diff --cached --quiet || git commit -m "Publish portfolio PDF"
+          git add mehrshad-noroozi-portfolio.pdf
+          git diff --cached --quiet || git commit -m "Publish portfolio PDF [skip ci]"
           git push
