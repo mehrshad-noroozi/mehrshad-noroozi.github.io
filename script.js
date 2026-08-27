@@ -21,7 +21,9 @@ const menuBtn=document.getElementById('menuBtn');const nav=document.getElementBy
       card=document.createElement('div');
       card.className='certificate-card';
       card.innerHTML=`<b>${title}</b><small>${type}</small>`;
-      list.appendChild(card);
+      const license=list.querySelector('.license');
+      if(license) list.insertBefore(card,license);
+      else list.appendChild(card);
     }
     if(!card.querySelector('.certificate-link')){
       const link=document.createElement('a');
