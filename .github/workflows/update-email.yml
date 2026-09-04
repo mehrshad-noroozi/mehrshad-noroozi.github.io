@@ -1,0 +1,29 @@
+name: Update portfolio email
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  update-email:
+    if: github.event.head_commit.message != 'Update portfolio email automatically'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace email
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace('mnrzj1995@gmail.com', 'Mehrshad.Noroozi1995@gmail.com')
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit email update and remove temporary workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html .github/workflows/update-email.yml
+          git rm -f .github/workflows/update-email.yml
+          git commit -m "Update portfolio email automatically"
+          git push
