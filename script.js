@@ -46,7 +46,7 @@ const menuBtn=document.getElementById('menuBtn');const nav=document.getElementBy
   document.head.appendChild(style);
   const link=document.createElement('a');
   link.className='license-link';
-  link.href='https://mojavez.ir/';
+  link.href='https://qr.mojavez.ir/track/I12951113';
   link.target='_blank';
   link.rel='noopener noreferrer';
   link.textContent='مشاهده و استعلام مجوز ↗';
