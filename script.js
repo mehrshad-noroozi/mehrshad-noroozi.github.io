@@ -36,3 +36,19 @@ const menuBtn=document.getElementById('menuBtn');const nav=document.getElementBy
     }
   });
 })();
+
+// Official license verification button
+(()=>{
+  const license=document.querySelector('.license');
+  if(!license||license.querySelector('.license-link'))return;
+  const style=document.createElement('style');
+  style.textContent=`.license-link{display:inline-flex;align-items:center;justify-content:center;margin-top:10px;padding:7px 12px;border:1px solid rgba(139,124,255,.35);border-radius:10px;background:rgba(139,124,255,.08);color:#b9b4ff;font-size:10px;font-weight:700;text-decoration:none;transition:.2s}.license-link:hover{transform:translateY(-2px);border-color:rgba(139,124,255,.65);background:rgba(139,124,255,.14);color:#fff}`;
+  document.head.appendChild(style);
+  const link=document.createElement('a');
+  link.className='license-link';
+  link.href='https://mojavez.ir/';
+  link.target='_blank';
+  link.rel='noopener noreferrer';
+  link.textContent='مشاهده و استعلام مجوز ↗';
+  license.appendChild(link);
+})();
